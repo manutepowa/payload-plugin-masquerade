@@ -4,7 +4,7 @@ Description
 
 # Features
 
-- ✅ Compatible with Payload v3
+- ✅ Compatible with Payload v3 beta.102
 - ✨ Zero dependencies
 - ⚙ Highly customizable
 
