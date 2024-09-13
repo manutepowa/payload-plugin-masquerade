@@ -26,6 +26,7 @@
     "payload": "cd dev && cross-env NODE_OPTIONS=--no-deprecation payload",
     "dev:lint": "cd dev && cross-env NODE_OPTIONS=--no-deprecation next lint",
     "generate:types": "payload generate:types",
+    "generate:importmap": "cd dev && cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
     "clean": "rimraf dist && rimraf dev/.next",
     "prepublishOnly": "pnpm clean && pnpm build"
