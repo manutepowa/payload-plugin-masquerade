@@ -13,16 +13,16 @@ export const MasqueradePlugin =
     }
 
     // Add global action to unmasquerade
-    // config.admin = {
-    //   ...config.admin,
-    //   components: {
-    //     ...(config.admin?.components || {}),
-    //     actions: [
-    //       ...(config.admin?.components?.actions || []),
-    //       "../../src/actions/Unmasquerade",
-    //     ],
-    //   },
-    // }
+    config.admin = {
+      ...config.admin,
+      components: {
+        ...(config.admin?.components || {}),
+        actions: [
+          ...(config.admin?.components?.actions || []),
+          "@/../../src/actions/Unmasquerade",
+        ],
+      },
+    }
 
     // Add field ui masquerade
     // Add endpoints to masquerade and unmasquerade
