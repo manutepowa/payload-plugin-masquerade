@@ -1,5 +1,5 @@
-import { default as default_0 } from '@/../../src/actions/Unmasquerade'
+import { Unmasquerade as Unmasquerade_0 } from 'payload-plugin-masquerade/ui'
 
 export const importMap = {
-  "@/../../src/actions/Unmasquerade#default": default_0
+  "payload-plugin-masquerade/ui#Unmasquerade": Unmasquerade_0
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import { cookies } from "next/headers"
 
-export default function Unmasquerade() {
+export const Unmasquerade = () => {
   if (!cookies().has("masquerade")) return null
 
   const userId = cookies().get("masquerade")

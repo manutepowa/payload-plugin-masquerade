@@ -89,6 +89,9 @@ importers:
       payload:
         specifier: 3.0.0-beta.102
         version: 3.0.0-beta.102(graphql@16.9.0)(monaco-editor@0.51.0)(react-dom@19.0.0-rc-06d0b89e-20240801(react@19.0.0-rc-06d0b89e-20240801))(react@19.0.0-rc-06d0b89e-20240801)(typescript@5.4.5)
+      payload-plugin-masquerade:
+        specifier: file:.
+        version: file:(payload@3.0.0-beta.102(graphql@16.9.0)(monaco-editor@0.51.0)(react-dom@19.0.0-rc-06d0b89e-20240801(react@19.0.0-rc-06d0b89e-20240801))(react@19.0.0-rc-06d0b89e-20240801)(typescript@5.4.5))
       prettier:
         specifier: 3.3.2
         version: 3.3.2
@@ -3992,6 +3995,11 @@ packages:
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
+
+  'payload-plugin-masquerade@file:':
+    resolution: {directory: '', type: directory}
+    peerDependencies:
+      payload: 3.0.0-beta.102
 
   payload@3.0.0-beta.102:
     resolution: {integrity: sha512-qbkiauI/MUmHtD/JfDKDCfenEOeKvgp3ANZQ99UKC8HcI4DReTTIA7c5pQ6ZWoUojJiLmxUULAvVlTuFicQd4g==}
@@ -10131,6 +10139,10 @@ snapshots:
   path-to-regexp@6.2.2: {}
 
   path-type@4.0.0: {}
+
+  payload-plugin-masquerade@file:(payload@3.0.0-beta.102(graphql@16.9.0)(monaco-editor@0.51.0)(react-dom@19.0.0-rc-06d0b89e-20240801(react@19.0.0-rc-06d0b89e-20240801))(react@19.0.0-rc-06d0b89e-20240801)(typescript@5.4.5)):
+    dependencies:
+      payload: 3.0.0-beta.102(graphql@16.9.0)(monaco-editor@0.51.0)(react-dom@19.0.0-rc-06d0b89e-20240801(react@19.0.0-rc-06d0b89e-20240801))(react@19.0.0-rc-06d0b89e-20240801)(typescript@5.4.5)
 
   payload@3.0.0-beta.102(graphql@16.9.0)(monaco-editor@0.51.0)(react-dom@19.0.0-rc-06d0b89e-20240801(react@19.0.0-rc-06d0b89e-20240801))(react@19.0.0-rc-06d0b89e-20240801)(typescript@5.4.5):
     dependencies:

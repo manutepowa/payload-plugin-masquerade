@@ -1,15 +1,21 @@
 {
   "name": "payload-plugin-masquerade",
   "version": "0.0.1",
-  "type": "module",
   "homepage:": "https://payloadcms.com",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
   "description": "Masquerade user for Payload CMS",
+  "author": "manutepowa@gmail.com",
+  "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./src/index.ts",
       "require": "./src/index.ts",
       "types": "./src/types.ts"
+    },
+    "./ui": {
+      "import": "./src/ui/index.ts",
+      "require": "./src/ui/index.ts"
     }
   },
   "keywords": [
@@ -39,12 +45,11 @@
     "clean": "rimraf dist && rimraf dev/.next",
     "prepublishOnly": "pnpm clean && pnpm build"
   },
-  "author": "manutepowa@gmail.com",
-  "license": "MIT",
   "peerDependencies": {
     "payload": "3.0.0-beta.102"
   },
   "devDependencies": {
+    "payload-plugin-masquerade": "file:.",
     "@payloadcms/db-mongodb": "3.0.0-beta.102",
     "@payloadcms/eslint-config": "^1.1.1",
     "@payloadcms/next": "3.0.0-beta.102",
