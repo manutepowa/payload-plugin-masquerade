@@ -46,5 +46,5 @@ To get it running:
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 # Credits
-This package was inspired by a drupal module [Masquerade](https://www.drupal.org/project/masquerade)
-This plugin template was inspired by [Payload OAuth2 Plugin](https://github.com/WilsonLe/payload-oauth2)
+- This package was inspired by a drupal module [Masquerade](https://www.drupal.org/project/masquerade)
+- This plugin template was inspired by [Payload OAuth2 Plugin](https://github.com/WilsonLe/payload-oauth2)
