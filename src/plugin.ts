@@ -19,7 +19,7 @@ export const MasqueradePlugin =
         ...(config.admin?.components || {}),
         actions: [
           ...(config.admin?.components?.actions || []),
-          "@/../../src/actions/Unmasquerade",
+          "payload-plugin-masquerade/ui#Unmasquerade",
         ],
       },
     }
