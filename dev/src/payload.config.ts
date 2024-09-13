@@ -19,6 +19,7 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+      // baseDir: path.resolve(dirname, '../..'),
     },
   },
   collections: [Users, Media],
@@ -34,6 +35,7 @@ export default buildConfig({
   plugins: [
     MasqueradePlugin({
       enabled: true,
+      authCollection: 'users'
     }),
   ],
 })
