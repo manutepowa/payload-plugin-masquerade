@@ -1,6 +1,6 @@
 # Payload plugin Masquerade
 
-Description
+The Masquerade module allows to switch users and surf the site as that user (no password required). That person can switch back to their own user account at any time.
 
 # Features
 
@@ -39,7 +39,8 @@ To get it running:
 
 1. Clone the project.
 2. `pnpm install`
-3. `pnpm dev`
+3. Add .env file in dev folder to start payload project
+4. `pnpm dev`
 
 # License
 
@@ -47,4 +48,4 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 # Credits
 - This package was inspired by a drupal module [Masquerade](https://www.drupal.org/project/masquerade)
-- This plugin template was inspired by [Payload OAuth2 Plugin](https://github.com/WilsonLe/payload-oauth2)
+- This plugin template was inspired by [payload-enchants](https://github.com/r1tsuu/payload-enchants)

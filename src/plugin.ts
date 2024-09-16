@@ -24,8 +24,8 @@ export const MasqueradePlugin =
       },
     }
 
-    // Add field ui masquerade
-    // Add endpoints to masquerade and unmasquerade
+    // Add authCollection field ui masquerade
+    // Add authCollection endpoints to masquerade and unmasquerade
 
     const authCollectionSlug = pluginOptions.authCollection || "users"
     const authCollection = config.collections?.find(
