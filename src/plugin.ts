@@ -44,7 +44,21 @@ export const MasqueradePlugin =
         ...(authCollection.endpoints || []),
         masqueradeEndpoint(authCollectionSlug),
         unmasqueradeEndpoint(authCollectionSlug),
-      ]
+      ],
+      fields: [
+        ...(authCollection.fields || []),
+        {
+          type: "ui",
+          name: "masquerade",
+          label: "Masquerade",
+          admin: {
+            components: {
+              Field: "payload-plugin-masquerade/ui#MasqueradeField",
+              Cell: "payload-plugin-masquerade/ui#MasqueradeCell",
+            },
+          },
+        },
+      ],
     }
 
     config.collections = config.collections?.map((collection) =>
