@@ -248,3 +248,4 @@ dist
 dev/src/uploads
 
 .data
+tsconfig.tsbuildinfo
