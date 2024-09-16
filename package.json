@@ -51,6 +51,7 @@
     "payload": "3.0.0-beta.102"
   },
   "devDependencies": {
+    "payload-plugin-masquerade": "file:.",
     "@payloadcms/db-mongodb": "3.0.0-beta.102",
     "@payloadcms/eslint-config": "^1.1.1",
     "@payloadcms/next": "3.0.0-beta.102",
@@ -79,7 +80,6 @@
     "mongodb-client-encryption": "6.0.1",
     "next": "15.0.0-canary.104",
     "payload": "3.0.0-beta.102",
-    "payload-plugin-masquerade": "^0.0.1",
     "prettier": "3.3.2",
     "prettier-plugin-organize-imports": "3.2.4",
     "react": "19.0.0-rc-06d0b89e-20240801",
