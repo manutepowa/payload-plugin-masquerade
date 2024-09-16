@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "homepage:": "https://payloadcms.com",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -8,8 +8,8 @@
   "author": "manutepowa@gmail.com",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./src/index.ts",
