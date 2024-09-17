@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "private": false,
   "homepage:": "https://payloadcms.com",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -63,8 +63,8 @@
     "@payloadcms/plugin-cloud": "3.0.0-beta.102",
     "@payloadcms/richtext-lexical": "3.0.0-beta.102",
     "@payloadcms/ui": "3.0.0-beta.102",
-    "@swc/cli": "^0.1.65",
-    "@swc/core": "1.7.26",
+    "@swc/cli": "0.1.65",
+    "@swc/core": "1.6.13",
     "@swc/jest": "0.2.36",
     "@types/jest": "29.5.12",
     "@types/jsonwebtoken": "9.0.6",
