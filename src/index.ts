@@ -3,6 +3,7 @@ import type { PluginTypes } from "./types";
 import { masqueradeEndpoint } from "./endpoints/masqueradeEndpoint";
 import { unmasqueradeEndpoint } from "./endpoints/unmasqueradeEndpoint";
 
+export { PluginTypes }
 export const MasqueradePlugin =
   (pluginOptions: PluginTypes): Plugin =>
   (incomingConfig) => {
