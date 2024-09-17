@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": false,
   "homepage:": "https://payloadcms.com",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -8,17 +8,15 @@
   "author": "manutepowa@gmail.com",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./src/index.ts",
-      "default": "./src/index.ts",
+      "require": "./src/index.ts",
       "types": "./src/index.ts"
     },
     "./ui": {
       "import": "./src/ui/index.ts",
-      "default": "./src/ui/index.ts",
+      "require": "./src/ui/index.ts",
       "types": "./src/ui/index.ts"
     }
   },
@@ -53,7 +51,6 @@
     "payload": "3.0.0-beta.102"
   },
   "devDependencies": {
-    "payload-plugin-masquerade": "file:.",
     "@payloadcms/db-mongodb": "3.0.0-beta.102",
     "@payloadcms/eslint-config": "^1.1.1",
     "@payloadcms/next": "3.0.0-beta.102",
@@ -82,6 +79,7 @@
     "mongodb-client-encryption": "6.0.1",
     "next": "15.0.0-canary.104",
     "payload": "3.0.0-beta.102",
+    "payload-plugin-masquerade": "0.0.7",
     "prettier": "3.3.2",
     "prettier-plugin-organize-imports": "3.2.4",
     "react": "19.0.0-rc-06d0b89e-20240801",
@@ -89,5 +87,22 @@
     "rimraf": "5.0.7",
     "sharp": "0.33.4",
     "typescript": "5.4.5"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      },
+      "./ui": {
+        "import": "./dist/ui/index.js",
+        "require": "./dist/ui/index.js",
+        "types": "./dist/ui/index.d.ts"
+      }
+    },
+    "main": "./dist/index.js",
+    "registry": "https://registry.npmjs.org/",
+    "types": "./dist/index.d.ts"
   }
 }
