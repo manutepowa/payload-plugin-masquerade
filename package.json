@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "private": false,
   "homepage:": "https://payloadcms.com",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -10,16 +10,22 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "require": "./src/index.ts",
+      "default": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./types": {
+      "import": "./src/types.ts",
+      "default": "./src/types.ts",
+      "types": "./src/types.ts"
     },
     "./ui": {
       "import": "./src/ui/index.ts",
-      "require": "./src/ui/index.ts",
+      "default": "./src/ui/index.ts",
       "types": "./src/ui/index.ts"
     }
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "payload",
     "cms",
@@ -92,12 +98,17 @@
     "exports": {
       ".": {
         "import": "./dist/index.js",
-        "require": "./dist/index.js",
+        "default": "./dist/index.js",
         "types": "./dist/index.d.ts"
+      },
+      "./types": {
+        "import": "./dist/types.js",
+        "default": "./dist/types.js",
+        "types": "./dist/types.d.ts"
       },
       "./ui": {
         "import": "./dist/ui/index.js",
-        "require": "./dist/ui/index.js",
+        "default": "./dist/ui/index.js",
         "types": "./dist/ui/index.d.ts"
       }
     },
