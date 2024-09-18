@@ -2,6 +2,10 @@
 
 The Masquerade module allows to switch users and surf the site as that user (no password required). That person can switch back to their own user account at any time.
 
+Two links to switch user (Masquerade) and go back (Unmasquerade)
+
+![Masquerade](https://raw.githubusercontent.com/manutepowa/payload-plugin-masquerade/main/screenshots/masquerade.png)
+
 # Features
 
 - ✅ Compatible with Payload v3 beta.102
