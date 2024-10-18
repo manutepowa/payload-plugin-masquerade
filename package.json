@@ -8,23 +8,6 @@
   "author": "manutepowa@gmail.com",
   "license": "MIT",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./ui": {
-      "import": "./dist/ui/index.js",
-      "default": "./dist/ui/index.js",
-      "types": "./dist/ui/index.d.ts"
-    },
-    "./types": {
-      "import": "./dist/types.js",
-      "default": "./dist/types.js",
-      "types": "./dist/types.d.ts"
-    }
-  },
   "keywords": [
     "payload",
     "cms",
@@ -37,7 +20,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm build:types && pnpm build:swc",
+    "build": "tsc --project tsconfig.json",
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths --copy-files",
     "build:types": "tsc --emitDeclarationOnly",
     "build:dev": "pnpm build --watch",
@@ -54,8 +37,6 @@
   "devDependencies": {
     "@payloadcms/eslint-config": "3.0.0-beta.97",
     "@payloadcms/ui": "3.0.0-beta.116",
-    "@swc/cli": "0.4.0",
-    "@swc/core": "1.7.28",
     "@types/jsonwebtoken": "9.0.7",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
@@ -65,13 +46,23 @@
     "cross-env": "7.0.3",
     "dotenv": "16.4.5",
     "eslint": "9.10.0",
-    "next": "15.0.0-canary.173",
     "jsonwebtoken": "^9.0.2",
+    "next": "15.0.0-canary.173",
     "payload": "3.0.0-beta.116",
     "react": "19.0.0-rc-3edc000d-20240926",
     "react-dom": "19.0.0-rc-3edc000d-20240926",
     "rimraf": "6.0.1",
     "typescript": "5.4.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    }
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   },
   "publishConfig": {
     "access": "public",
@@ -96,14 +87,21 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./ui": {
+      "import": "./dist/ui/index.js",
+      "default": "./dist/ui/index.js",
+      "types": "./dist/ui/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "default": "./dist/types.js",
+      "types": "./dist/types.d.ts"
     }
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }
