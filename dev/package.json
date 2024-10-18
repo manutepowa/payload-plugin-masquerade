@@ -1,0 +1,35 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "A blank template to get started with Payload 3.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+  },
+  "dependencies": {
+    "@payloadcms/ui": "3.0.0-beta.116",
+    "@payloadcms/db-mongodb": "3.0.0-beta.116",
+    "@payloadcms/next": "3.0.0-beta.116",
+    "@payloadcms/plugin-cloud": "3.0.0-beta.116",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.116",
+    "graphql": "^16.8.1",
+    "next": "15.0.0-canary.173",
+    "payload": "3.0.0-beta.116",
+    "payload-plugin-masquerade": "workspace:*",
+    "react": "19.0.0-rc-3edc000d-20240926",
+    "react-dom": "19.0.0-rc-3edc000d-20240926"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
+    "typescript": "5.6.2"
+  }
+}

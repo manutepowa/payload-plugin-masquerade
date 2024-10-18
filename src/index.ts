@@ -1,4 +1,4 @@
-import type { CollectionConfig, Plugin } from "payload";
+import type { CollectionConfig, Config, Plugin } from "payload";
 import type { PluginTypes } from "./types";
 import { masqueradeEndpoint } from "./endpoints/masqueradeEndpoint";
 import { unmasqueradeEndpoint } from "./endpoints/unmasqueradeEndpoint";
@@ -6,7 +6,7 @@ import { unmasqueradeEndpoint } from "./endpoints/unmasqueradeEndpoint";
 export { PluginTypes }
 export const MasqueradePlugin =
   (pluginOptions: PluginTypes): Plugin =>
-  (incomingConfig) => {
+  (incomingConfig: Config): Config => {
     let config = { ...incomingConfig };
 
     if (pluginOptions.enabled === false) {
@@ -54,7 +54,7 @@ export const MasqueradePlugin =
           label: "Masquerade",
           admin: {
             components: {
-              Field: "payload-plugin-masquerade/ui#MasqueradeField",
+              Field: "payload-plugin-masquerade/ui#NullCell",
               Cell: "payload-plugin-masquerade/ui#MasqueradeCell",
             },
           },
@@ -62,7 +62,7 @@ export const MasqueradePlugin =
       ],
     }
 
-    config.collections = config.collections?.map((collection) =>
+    config.collections = (config.collections || []).map((collection) =>
       collection.slug === authCollectionSlug ? modifiedCollection : collection,
     )
 

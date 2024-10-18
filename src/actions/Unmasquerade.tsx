@@ -1,9 +1,11 @@
 import { cookies } from "next/headers"
 
-export const Unmasquerade = () => {
-  if (!cookies().has("masquerade")) return null
+export const Unmasquerade = async () => {
+  const appCookies = await cookies()
 
-  const userId = cookies().get("masquerade")
+  if (!appCookies.has("masquerade")) return null
+
+  const userId = appCookies.get("masquerade")
   return (
     <a
       href={`/api/users/unmasquerade/${userId?.value}`}

@@ -41,38 +41,35 @@
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths --copy-files",
     "build:types": "tsc --emitDeclarationOnly",
     "build:dev": "pnpm build --watch",
+    "dev": "pnpm -C dev dev",
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
     "lint": "eslint src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
     "prepublishOnly": "pnpm clean && pnpm build"
   },
   "peerDependencies": {
-    "@payloadcms/ui": "3.0.0-beta.102",
-    "next": "15.0.0-canary.104",
-    "payload": "3.0.0-beta.102"
+    "next": "15.0.0-canary.173",
+    "payload": "3.0.0-beta.116"
   },
   "devDependencies": {
+    "@payloadcms/eslint-config": "3.0.0-beta.97",
+    "@payloadcms/ui": "3.0.0-beta.116",
     "@swc/cli": "0.4.0",
     "@swc/core": "1.7.28",
     "@types/jsonwebtoken": "9.0.7",
-    "@types/react": "npm:types-react@19.0.0-rc.0",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@typescript-eslint/eslint-plugin": "7.13.1",
     "@typescript-eslint/parser": "7.13.1",
-    "chokidar": "^4.0.1",
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "dotenv": "16.4.5",
     "eslint": "9.10.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-prettier": "^5.1.3",
+    "next": "15.0.0-canary.173",
     "jsonwebtoken": "^9.0.2",
-    "prettier": "3.3.2",
-    "prettier-plugin-organize-imports": "3.2.4",
-    "react": "19.0.0-rc-06d0b89e-20240801",
-    "react-dom": "19.0.0-rc-06d0b89e-20240801",
+    "payload": "3.0.0-beta.116",
+    "react": "19.0.0-rc-3edc000d-20240926",
+    "react-dom": "19.0.0-rc-3edc000d-20240926",
     "rimraf": "6.0.1",
     "typescript": "5.4.5"
   },
@@ -98,5 +95,15 @@
     "registry": "https://registry.npmjs.org/",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    }
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }

@@ -1,14 +1,17 @@
 "use client"
-import type { CustomComponent } from "payload"
+import type { CellComponentProps } from 'payload'
 import { useTableCell, useAuth } from "@payloadcms/ui"
 import React from "react"
 
-export const MasqueradeCell: React.FC<CustomComponent> = (props) => {
+export const MasqueradeCell: React.FC<CellComponentProps> = (props) => {
   const {
-    rowData: { id: idUser },
+    rowData,
   } = useTableCell()
   const { user: loggedInUser } = useAuth()
 
+  console.log({ rowData, loggedInUser })
+
+  const idUser = "asd"
   return (
     <>
       {loggedInUser?.id !== idUser && (
@@ -17,6 +20,4 @@ export const MasqueradeCell: React.FC<CustomComponent> = (props) => {
     </>
   )
 }
-
-export const MasqueradeField: React.FC<CustomComponent> = () => null
 
