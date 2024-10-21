@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": false,
   "homepage:": "https://github.com/manutepowa/payload-plugin-masquerade",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -77,6 +77,11 @@
         "import": "./dist/ui/index.js",
         "default": "./dist/ui/index.js",
         "types": "./dist/ui/index.d.ts"
+      },
+      "./types": {
+        "import": "./dist/types.js",
+        "default": "./dist/types.js",
+        "types": "./dist/types.d.ts"
       }
     },
     "registry": "https://registry.npmjs.org/",
@@ -97,9 +102,9 @@
       "types": "./dist/ui/index.d.ts"
     },
     "./types": {
-      "import": "./dist/ui/types.js",
-      "default": "./dist/ui/types.js",
-      "types": "./dist/ui/types.d.ts"
+      "import": "./dist/types.js",
+      "default": "./dist/types.js",
+      "types": "./dist/types.d.ts"
     }
   }
 }
