@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": false,
   "homepage:": "https://github.com/manutepowa/payload-plugin-masquerade",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -20,11 +20,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc --project tsconfig.json",
-    "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths --copy-files",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build": "pnpm copyfiles && pnpm build:swc && pnpm build:types",
+    "build:swc": "swc ./src -d ./dist --config-file .swcrc",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "build:dev": "pnpm build --watch",
     "dev": "pnpm -C dev dev",
+    "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png,json}\" dist/",
     "generate:importmap": "pnpm -C dev generate:importmap",
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
     "lint": "eslint src",
@@ -44,6 +45,8 @@
   },
   "devDependencies": {
     "@payloadcms/eslint-config": "3.0.0-beta.97",
+    "@swc/cli": "0.1.65",
+    "@swc/core": "1.6.13",
     "@types/node": "22.7.5",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
