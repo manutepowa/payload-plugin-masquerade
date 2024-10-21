@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "homepage:": "https://github.com/manutepowa/payload-plugin-masquerade",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
   "description": "Masquerade user for Payload CMS",
