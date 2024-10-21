@@ -1,9 +1,9 @@
 "use client"
-import type { CustomComponent } from "payload"
+import type { CellComponentProps } from 'payload'
 import { useTableCell, useAuth } from "@payloadcms/ui"
 import React from "react"
 
-export const MasqueradeCell: React.FC<CustomComponent> = (props) => {
+export const MasqueradeCell: React.FC<CellComponentProps> = (props) => {
   const {
     rowData: { id: idUser },
   } = useTableCell()
@@ -12,11 +12,9 @@ export const MasqueradeCell: React.FC<CustomComponent> = (props) => {
   return (
     <>
       {loggedInUser?.id !== idUser && (
-        <a href={`/api/users/${idUser}/masquerade`}>Masquerade</a>
+        <a href={`/api/users/${idUser}/masquerade`}>Masqueradee</a>
       )}
     </>
   )
 }
-
-export const MasqueradeField: React.FC<CustomComponent> = () => null
 

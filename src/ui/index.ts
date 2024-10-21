@@ -1,2 +1,3 @@
-export { Unmasquerade } from '../actions/Unmasquerade'
-export { MasqueradeField, MasqueradeCell } from './Masquerade'
+export { Unmasquerade } from "../actions/Unmasquerade"
+export { MasqueradeCell } from './Masquerade'
+export { NullCell } from './NullCell'

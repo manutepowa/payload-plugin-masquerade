@@ -9,6 +9,7 @@ export const masqueradeEndpoint = (
   path: "/:id/masquerade",
   handler: async (req) => {
     const { payload, routeParams } = req
+    const appCookies = await cookies()
     if (!routeParams?.id) {
       return new Response("No user ID provided", { status: 400 })
     }
@@ -33,13 +34,14 @@ export const masqueradeEndpoint = (
     })
 
     const cookie = generatePayloadCookie({
-      collectionConfig: payload.collections.users.config,
-      payload,
+      collectionAuthConfig: payload.collections.users.config.auth,
+      cookiePrefix: payload.config.cookiePrefix,
       token,
     })
 
+
     // Set masquerade cookie with allow unmasquerade
-    cookies().set("masquerade", req.user?.id.toString() as string)
+    appCookies.set("masquerade", req.user?.id.toString() as string)
 
     // success redirect
     return new Response(null, {
