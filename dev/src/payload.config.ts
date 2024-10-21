@@ -1,38 +1,83 @@
-// storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
-
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
-
-import { MasqueradePlugin } from 'payload-plugin-masquerade'
+import { testEmailAdapter } from './emailAdapter'
+import { masqueradePlugin } from 'payload-plugin-masquerade'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
-    importMap: {
-      baseDir: path.resolve(dirname),
+    autoLogin: {
+      email: 'dev@payloadcms.com',
+      password: 'test',
     },
+    user: 'users',
   },
-  collections: [Users, Media],
+  collections: [
+    {
+      slug: 'users',
+      auth: true,
+      fields: [],
+    },
+    {
+      slug: 'pages',
+      admin: {
+        useAsTitle: 'title',
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+        },
+        {
+          name: 'content',
+          type: 'richText',
+        },
+      ],
+    },
+    {
+      slug: 'media',
+      fields: [
+        {
+          name: 'text',
+          type: 'text',
+        },
+      ],
+      upload: true,
+    },
+  ],
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI || 'mongodb://127.0.0.1/plugin-development',
+  }),
+  email: testEmailAdapter,
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET || 'SOME_SECRET',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI || '',
-  }),
   plugins: [
-    MasqueradePlugin({
+    masqueradePlugin({
       enabled: true,
-      authCollection: 'users',
+    }),
+  ],
+  async onInit(payload) {
+    const existingUsers = await payload.find({
+      collection: 'users',
+      limit: 1,
     })
-  ]
+
+    if (existingUsers.docs.length === 0) {
+      await payload.create({
+        collection: 'users',
+        data: {
+          email: 'dev@payloadcms.com',
+          password: 'test',
+        },
+      })
+    }
+  },
 })

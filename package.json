@@ -1,8 +1,7 @@
 {
   "name": "payload-plugin-masquerade",
   "version": "0.0.13",
-  "private": false,
-  "homepage:": "https://payloadcms.com",
+  "homepage:": "https://github.com/manutepowa/payload-plugin-masquerade",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
   "description": "Masquerade user for Payload CMS",
   "author": "manutepowa@gmail.com",
@@ -25,6 +24,7 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:dev": "pnpm build --watch",
     "dev": "pnpm -C dev dev",
+    "generate:importmap": "pnpm -C dev generate:importmap",
     "clean": "rimraf dist && rimraf tsconfig.tsbuildinfo",
     "lint": "eslint src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
@@ -34,25 +34,25 @@
     "next": "15.0.0-canary.173",
     "payload": "3.0.0-beta.116"
   },
-  "devDependencies": {
-    "@payloadcms/eslint-config": "3.0.0-beta.97",
+  "dependencies": {
     "@payloadcms/ui": "3.0.0-beta.116",
     "@types/jsonwebtoken": "9.0.7",
+    "jsonwebtoken": "9.0.2",
+    "react": "19.0.0-rc-3edc000d-20240926",
+    "react-dom": "19.0.0-rc-3edc000d-20240926"
+  },
+  "devDependencies": {
+    "@payloadcms/eslint-config": "3.0.0-beta.97",
+    "@types/node": "22.7.5",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-    "@typescript-eslint/eslint-plugin": "7.13.1",
-    "@typescript-eslint/parser": "7.13.1",
     "copyfiles": "2.4.1",
-    "cross-env": "7.0.3",
-    "dotenv": "16.4.5",
-    "eslint": "9.10.0",
-    "jsonwebtoken": "^9.0.2",
     "next": "15.0.0-canary.173",
     "payload": "3.0.0-beta.116",
     "react": "19.0.0-rc-3edc000d-20240926",
     "react-dom": "19.0.0-rc-3edc000d-20240926",
     "rimraf": "6.0.1",
-    "typescript": "5.4.5"
+    "typescript": "5.5.3"
   },
   "pnpm": {
     "overrides": {
@@ -64,6 +64,8 @@
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "publishConfig": {
     "access": "public",
     "exports": {
@@ -76,11 +78,6 @@
         "import": "./dist/ui/index.js",
         "default": "./dist/ui/index.js",
         "types": "./dist/ui/index.d.ts"
-      },
-      "./types": {
-        "import": "./dist/types.js",
-        "default": "./dist/types.js",
-        "types": "./dist/types.d.ts"
       }
     },
     "registry": "https://registry.npmjs.org/",
@@ -89,19 +86,14 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "require": "./src/index.ts",
+      "types": "./src/index.ts"
     },
     "./ui": {
-      "import": "./dist/ui/index.js",
-      "default": "./dist/ui/index.js",
-      "types": "./dist/ui/index.d.ts"
-    },
-    "./types": {
-      "import": "./dist/types.js",
-      "default": "./dist/types.js",
-      "types": "./dist/types.d.ts"
+      "import": "./src/ui/index.ts",
+      "default": "./src/ui/index.ts",
+      "types": "./src/ui/index.ts"
     }
   }
 }

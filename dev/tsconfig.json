@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "strict": true,
     "esModuleInterop": true,
@@ -14,12 +10,8 @@
     "rootDir": ".",
     "jsx": "preserve",
     "paths": {
-      "@payload-config": [
-        "./src/payload.config.ts"
-      ],
-      "payload/generated-types": [
-        "./src/payload-types.ts"
-      ]
+      "@payload-config": ["./src/payload.config.ts"],
+      "payload/generated-types": ["./src/payload-types.ts"]
     },
     "noEmit": true,
     "incremental": true,
@@ -33,14 +25,6 @@
       }
     ]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "dist", "build"]
 }
