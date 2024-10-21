@@ -12,7 +12,7 @@ export const MasqueradeCell: React.FC<CellComponentProps> = (props) => {
   return (
     <>
       {loggedInUser?.id !== idUser && (
-        <a href={`/api/users/${idUser}/masquerade`}>Masqueradee</a>
+        <a href={`/api/users/${idUser}/masquerade`}>Masquerade</a>
       )}
     </>
   )

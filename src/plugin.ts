@@ -52,7 +52,7 @@ export const masqueradePlugin =
            label: "Masquerade",
            admin: {
              components: {
-               Field: "payload-plugin-masquerade/ui#NullCell",
+               Field: "payload-plugin-masquerade/ui#NullField",
                Cell: "payload-plugin-masquerade/ui#MasqueradeCell",
              },
            },

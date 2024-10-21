@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage:": "https://github.com/manutepowa/payload-plugin-masquerade",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
   "description": "Masquerade user for Payload CMS",
@@ -65,7 +65,7 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   },
   "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "types": "./dist/index.ts",
   "publishConfig": {
     "access": "public",
     "exports": {
@@ -86,14 +86,14 @@
   },
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "require": "./src/index.ts",
-      "types": "./src/index.ts"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./ui": {
-      "import": "./src/ui/index.ts",
-      "default": "./src/ui/index.ts",
-      "types": "./src/ui/index.ts"
+      "import": "./dist/ui/index.js",
+      "default": "./dist/ui/index.js",
+      "types": "./dist/ui/index.d.ts"
     }
   }
 }

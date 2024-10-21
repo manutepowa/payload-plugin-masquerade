@@ -1,5 +1,5 @@
 import { MasqueradeCell as MasqueradeCell_0 } from 'payload-plugin-masquerade/ui'
-import { NullCell as NullCell_1 } from 'payload-plugin-masquerade/ui'
+import { NullField as NullField_1 } from 'payload-plugin-masquerade/ui'
 import { RichTextCell as RichTextCell_2 } from '@payloadcms/richtext-lexical/client'
 import { RichTextField as RichTextField_3 } from '@payloadcms/richtext-lexical/client'
 import { getGenerateComponentMap as getGenerateComponentMap_4 } from '@payloadcms/richtext-lexical/generateComponentMap'
@@ -27,7 +27,7 @@ import { Unmasquerade as Unmasquerade_25 } from 'payload-plugin-masquerade/ui'
 
 export const importMap = {
   "payload-plugin-masquerade/ui#MasqueradeCell": MasqueradeCell_0,
-  "payload-plugin-masquerade/ui#NullCell": NullCell_1,
+  "payload-plugin-masquerade/ui#NullField": NullField_1,
   "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_2,
   "@payloadcms/richtext-lexical/client#RichTextField": RichTextField_3,
   "@payloadcms/richtext-lexical/generateComponentMap#getGenerateComponentMap": getGenerateComponentMap_4,

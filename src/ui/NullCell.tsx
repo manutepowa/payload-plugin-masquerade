@@ -1,3 +1,4 @@
-import { CustomComponent } from "payload";
+"use client"
+import type { UIFieldClient } from "payload";
 
-export const NullCell: React.FC<CustomComponent> = () => null
+export const NullField: React.FC<UIFieldClient> = () => null
