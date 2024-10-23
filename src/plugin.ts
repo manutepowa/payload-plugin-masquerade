@@ -16,10 +16,10 @@ export const masqueradePlugin =
       ...(config.admin || {}),
       components: {
         ...(config.admin?.components || {}),
-        actions: [
-          ...(config.admin?.components?.actions || []),
+        header: [
+          ...(config.admin?.components?.header || []),
           "payload-plugin-masquerade/ui#Unmasquerade",
-        ],
+        ]
       },
     }
 
