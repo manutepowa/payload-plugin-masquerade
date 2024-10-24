@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=\"${NODE_OPTIONS} --no-deprecation\" next dev",
+    "dev": "cross-env NODE_OPTIONS=\"${NODE_OPTIONS} --no-deprecation\" next dev --turbo",
     "devturbo": "pnpm dev --turbo",
     "devsafe": "rm -rf .next && pnpm dev",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
@@ -31,6 +31,6 @@
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
-    "typescript": "5.5.3"
+    "typescript": "5.6.3"
   }
 }
