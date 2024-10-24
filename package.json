@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "private": false,
   "homepage:": "https://github.com/manutepowa/payload-plugin-masquerade",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -34,10 +34,12 @@
   },
   "peerDependencies": {
     "next": "15.0.0",
-    "payload": "3.0.0-beta.117"
+    "payload": "3.0.0-beta.118",
+    "react": "19.0.0-rc-65a56d0e-20241020",
+    "react-dom": "19.0.0-rc-65a56d0e-20241020"
   },
   "dependencies": {
-    "@payloadcms/ui": "3.0.0-beta.117",
+    "@payloadcms/ui": "3.0.0-beta.118",
     "@types/jsonwebtoken": "9.0.7",
     "jsonwebtoken": "9.0.2"
   },
@@ -49,10 +51,6 @@
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "copyfiles": "2.4.1",
-    "next": "15.0.0",
-    "payload": "3.0.0-beta.116",
-    "react": "19.0.0-rc-65a56d0e-20241020",
-    "react-dom": "19.0.0-rc-65a56d0e-20241020",
     "rimraf": "6.0.1",
     "typescript": "5.6.3"
   },
