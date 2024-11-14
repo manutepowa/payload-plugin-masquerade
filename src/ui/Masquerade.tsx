@@ -1,12 +1,10 @@
 "use client"
-import type { CellComponentProps } from 'payload'
-import { useTableCell, useAuth } from "@payloadcms/ui"
+import { useAuth } from "@payloadcms/ui"
+import { DefaultCellComponentProps } from "payload"
 import React from "react"
 
-export const MasqueradeCell: React.FC<CellComponentProps> = (props) => {
-  const {
-    rowData: { id: idUser },
-  } = useTableCell()
+export const MasqueradeCell: React.FC<DefaultCellComponentProps> = (props) => {
+  const { rowData: { id: idUser } } = props
   const { user: loggedInUser } = useAuth()
 
   return (
