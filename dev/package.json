@@ -16,13 +16,13 @@
     "generate:importmap": "payload generate:importmap"
   },
   "dependencies": {
-    "@payloadcms/db-mongodb": "3.0.0-beta.130",
-    "@payloadcms/db-postgres": "3.0.0-beta.130",
-    "@payloadcms/next": "3.0.0-beta.130",
-    "@payloadcms/richtext-lexical": "3.0.0-beta.130",
-    "@payloadcms/ui": "3.0.0-beta.130",
-    "next": "15.0.0",
-    "payload": "3.0.0-beta.130",
+    "@payloadcms/db-mongodb": "^3",
+    "@payloadcms/db-postgres": "^3",
+    "@payloadcms/next": "^3",
+    "@payloadcms/richtext-lexical": "^3",
+    "@payloadcms/ui": "^3",
+    "next": "^15.0.3",
+    "payload": "^3",
     "payload-plugin-masquerade": "workspace:*",
     "react": "19.0.0-rc-65a56d0e-20241020",
     "react-dom": "19.0.0-rc-65a56d0e-20241020"

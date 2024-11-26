@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-masquerade",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "private": false,
   "homepage:": "https://github.com/manutepowa/payload-plugin-masquerade",
   "repository": "https://github.com/manutepowa/payload-plugin-masquerade",
@@ -33,18 +33,18 @@
     "prepublishOnly": "pnpm clean && pnpm build"
   },
   "peerDependencies": {
-    "next": "15.0.0",
-    "payload": "beta",
+    "next": "^15.0.0",
+    "payload": "^3",
     "react": "19.0.0-rc-65a56d0e-20241020",
     "react-dom": "19.0.0-rc-65a56d0e-20241020"
   },
   "dependencies": {
-    "@payloadcms/ui": "beta",
+    "@payloadcms/ui": "^3",
     "@types/jsonwebtoken": "9.0.7",
     "jsonwebtoken": "9.0.2"
   },
   "devDependencies": {
-    "@payloadcms/eslint-config": "beta",
+    "@payloadcms/eslint-config": "^3",
     "@swc/cli": "0.1.65",
     "@swc/core": "1.6.13",
     "@types/node": "22.7.5",
