@@ -2,6 +2,7 @@ import type { CollectionConfig, Config, Plugin } from "payload";
 import type { PluginTypes } from "./types";
 import { masqueradeEndpoint } from "./endpoints/masqueradeEndpoint";
 import { unmasqueradeEndpoint } from "./endpoints/unmasqueradeEndpoint";
+import { cookies } from "next/headers";
 
 export const masqueradePlugin =
   (pluginOptions: PluginTypes): Plugin =>
@@ -58,6 +59,16 @@ export const masqueradePlugin =
            },
          },
        ],
+       hooks: {
+         ...(authCollection.hooks || []),
+         afterLogout: [
+            ...(authCollection.hooks?.afterLogout || []),
+            async () => {
+                const cooks = await cookies();
+                cooks.delete('masquerade')
+            }
+         ]
+       }
      }
 
      config.collections = (config.collections || []).map((collection) =>
