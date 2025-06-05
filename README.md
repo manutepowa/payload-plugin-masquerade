@@ -24,10 +24,12 @@ yarn install payload-plugin-masquerade
 Integrating to `users` collection.
 
 ```ts
+import { masqueradePlugin } from 'payload-plugin-masquerade'
+
 export default buildConfig({
   // ...
   plugins: [
-    MasqueradePlugin({
+    masqueradePlugin({
       enabled: true,
     }),
   ],
