@@ -10,7 +10,7 @@ export const testEmailAdapter: EmailAdapter<void> = ({ payload }) => ({
   sendEmail: async (message) => {
     const stringifiedTo = getStringifiedToAddress(message)
     const res = `Test email to: '${stringifiedTo}', Subject: '${message.subject}'`
-    payload.logger.info({ msg: res, content: message })
+    payload.logger.info({ content: message, msg: res })
     return Promise.resolve()
   },
 })
@@ -22,7 +22,7 @@ function getStringifiedToAddress(message: SendEmailOptions): string | undefined 
     stringifiedTo = message.to
   } else if (Array.isArray(message.to)) {
     stringifiedTo = message.to
-      .map((to: string | { address: string }) => {
+      .map((to: { address: string } | string) => {
         if (typeof to === 'string') {
           return to
         } else if (to.address) {
@@ -31,7 +31,7 @@ function getStringifiedToAddress(message: SendEmailOptions): string | undefined 
         return ''
       })
       .join(', ')
-  } else if (message.to.address) {
+  } else if (message.to?.address) {
     stringifiedTo = message.to.address
   }
   return stringifiedTo

@@ -10,7 +10,7 @@ export const defaultESLintIgnores = [
   '**/.pnp.*',
   '**/.svn',
   '**/playwright.config.ts',
-  '**/jest.config.js',
+  '**/vitest.config.js',
   '**/tsconfig.tsbuildinfo',
   '**/README.md',
   '**/eslint.config.js',
@@ -25,12 +25,10 @@ export const defaultESLintIgnores = [
 export default [
   ...payloadEsLintConfig,
   {
-    // Modify any rules from payload's config that you want to override/disable
-    'no-restricted-exports': 'off',
-  },
-  // TODO: Bring in '@payloadcms/eslint-plugin' for 'payload/proper-payload-logger-usage' rule
-  {
-    ignores: defaultESLintIgnores,
+    rules: {
+      'no-restricted-exports': 'off',
+      'perfectionist/sort-objects': 'off',
+    },
   },
   {
     languageOptions: {

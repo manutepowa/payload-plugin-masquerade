@@ -1,6 +1,7 @@
 "use client"
+import type { DefaultCellComponentProps } from "payload"
+
 import { useAuth } from "@payloadcms/ui"
-import { DefaultCellComponentProps } from "payload"
 import React from "react"
 
 export const MasqueradeCell: React.FC<DefaultCellComponentProps> = (props) => {
