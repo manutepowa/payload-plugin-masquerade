@@ -1,3 +1,3 @@
-export { Unmasquerade } from '../actions/Unmasquerade.tsx'
-export { MasqueradeCell } from './Masquerade.tsx'
-export { NullField } from './NullField.tsx'
+export { Unmasquerade } from '../actions/Unmasquerade.jsx'
+export { MasqueradeCell } from './Masquerade.jsx'
+export { NullField } from './NullField.jsx'
