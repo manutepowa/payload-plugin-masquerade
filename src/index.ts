@@ -2,8 +2,8 @@ import type { CollectionConfig, Config, Plugin } from 'payload'
 
 import { cookies } from 'next/headers.js'
 
-import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint.ts'
-import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint.ts'
+import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint.js'
+import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint.js'
 
 export interface PluginTypes {
   /**
