@@ -1,26 +1,35 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
     ],
-    "target": "es5",
+    "rootDir": "./",
     "allowJs": true,
-    "jsx": "preserve",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "declaration": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "emitDeclarationOnly": true,
+    "target": "ES2022",
+    "composite": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "src/**/*"
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./dev/next-env.d.ts"
   ]
 }

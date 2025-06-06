@@ -1,17 +1,13 @@
-import { generatePayloadCookie, type Endpoint } from "payload"
-import jwt from "jsonwebtoken"
-import { cookies } from "next/headers"
+import jwt from 'jsonwebtoken'
+import { cookies } from 'next/headers.js'
+import { type Endpoint, generatePayloadCookie } from 'payload'
 
-export const unmasqueradeEndpoint = (
-  authCollectionSlug: string,
-): Endpoint => ({
-  method: "get",
-  path: "/unmasquerade/:id",
+export const unmasqueradeEndpoint = (authCollectionSlug: string): Endpoint => ({
   handler: async (req) => {
     const { payload, routeParams } = req
     const appCookies = await cookies()
     if (!routeParams?.id) {
-      return new Response("No user ID provided", { status: 400 })
+      return new Response('No user ID provided', { status: 400 })
     }
 
     const user = await payload.findByID({
@@ -20,7 +16,7 @@ export const unmasqueradeEndpoint = (
     })
 
     if (!user) {
-      return new Response("User not found", { status: 404 })
+      return new Response('User not found', { status: 404 })
     }
 
     const fieldsToSign = {
@@ -39,18 +35,18 @@ export const unmasqueradeEndpoint = (
       token,
     })
 
-
     // Set masquerade cookie with allow unmasquerade
-    appCookies.delete("masquerade")
+    appCookies.delete('masquerade')
 
     // success redirect
     return new Response(null, {
       headers: {
-        "Set-Cookie": cookie,
-        Location: "/admin",
+        'Set-Cookie': cookie,
+        Location: '/admin',
       },
       status: 302,
     })
   },
+  method: 'get',
+  path: '/unmasquerade/:id',
 })
-

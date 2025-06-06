@@ -1,4 +1,4 @@
 import type { UIField } from "payload";
-import React from "react"
+import type React from "react"
 
 export const NullField: React.FC<UIField> = () => null
