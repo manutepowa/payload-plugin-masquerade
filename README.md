@@ -39,8 +39,12 @@ export default buildConfig({
 
 ## Enable masquerade form block
 
-
-![MasqueradeForm](https://raw.githubusercontent.com/manutepowa/payload-plugin-masquerade/main/screenshots/masquerade-form.mp4)
+<div align="center">
+  <p>
+    <h3><a href="https://raw.githubusercontent.com/manutepowa/payload-plugin-masquerade/main/screenshots/masquerade-form.mp4">Masquerade Block Form</a></h3>
+    <video style="width: 100%" controls muted src="https://raw.githubusercontent.com/manutepowa/payload-plugin-masquerade/main/screenshots/masquerade-form.mp4"></video>
+  </p>
+</div>
 
 Enable the masquerade form block to allow select a user and switch to their account directly from the admin panel. The selection form appears before the navigation links, making it easy to access and use the Masquerade feature.
 
