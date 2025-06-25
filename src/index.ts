@@ -12,6 +12,11 @@ export interface PluginTypes {
    */
   authCollection?: string
   /**
+   * Enable block form
+   * @default true
+   */
+  enableBlockForm?: boolean
+  /**
    * Enable or disable plugin
    * @default false
    */
@@ -31,6 +36,12 @@ export const masqueradePlugin =
       ...(config.admin || {}),
       components: {
         ...(config.admin?.components || {}),
+        ...(pluginOptions.enableBlockForm !== false && {
+          beforeNavLinks: [
+            ...(config.admin?.components?.beforeNavLinks || []),
+            'payload-plugin-masquerade/ui#MasqueradeForm',
+          ],
+        }),
         header: [
           ...(config.admin?.components?.header || []),
           'payload-plugin-masquerade/ui#Unmasquerade',
