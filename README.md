@@ -19,7 +19,7 @@ npm install payload-plugin-masquerade
 yarn install payload-plugin-masquerade
 ```
 
-# Example Usage
+## Example Usage
 
 Integrating to `users` collection.
 
@@ -37,7 +37,29 @@ export default buildConfig({
 });
 ```
 
-# Contributing
+## Enable masquerade form block
+
+
+![MasqueradeForm](https://raw.githubusercontent.com/manutepowa/payload-plugin-masquerade/main/screenshots/masquerade-form.webm)
+
+Enable the masquerade form block to allow select a user and switch to their account directly from the admin panel. The selection form appears before the navigation links, making it easy to access and use the Masquerade feature.
+
+Block is enable by default, to disable set to false
+
+```ts
+export default buildConfig({
+  // ...
+  plugins: [
+    masqueradePlugin({
+      enableBlockForm: false,
+    }),
+  ],
+  // ...
+});
+```
+
+
+## Contributing
 
 Contributions and feedback are very welcome.
 
@@ -48,10 +70,9 @@ To get it running:
 3. Add .env file in dev folder to start payload project
 4. `pnpm dev`
 
-# License
+## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
-# Credits
+## Credits
 - This package was inspired by a drupal module [Masquerade](https://www.drupal.org/project/masquerade)
-- This plugin template was inspired by [payload-enchants](https://github.com/r1tsuu/payload-enchants)
