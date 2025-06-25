@@ -63,6 +63,7 @@ const buildConfigWithMemoryDB = async () => {
     plugins: [
       masqueradePlugin({
         authCollection: Users.slug,
+        enableBlockForm: true,
         enabled: true,
       }),
     ],
