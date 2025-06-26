@@ -1,9 +1,9 @@
-import type { CollectionConfig, Config, Plugin } from 'payload'
+import type { CollectionConfig, Config, PayloadRequest, Plugin } from 'payload'
 
-import { cookies } from 'next/headers.js'
+import { cookies } from 'next/headers'
 
-import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint.js'
-import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint.js'
+import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint'
+import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint'
 
 export interface PluginTypes {
   /**
@@ -21,6 +21,35 @@ export interface PluginTypes {
    * @default false
    */
   enabled?: boolean
+  /**
+   * Optional callback that runs whenever an admin starts masquerading as another user.
+   *
+   * This function can be used to execute custom logic such as logging, notifications,
+   * or permission checks. It receives the request object and the masqueraded user ID as arguments,
+   * and can be asynchronous.
+   * @req Original user is available in `req.user`
+   */
+  onMasquerade?: ({
+    req,
+    masqueradeUserId,
+  }: {
+    req: PayloadRequest
+    masqueradeUserId: string | number
+  }) => void | Promise<void>
+  /**
+   * Optional callback that runs whenever an admin stops masquerading and returns to their original user.
+   *
+   * This function enables you to execute custom logic, such as logging, notifications, or cleanup actions.
+   * It receives the request object and the original user ID as arguments and can be asynchronous.
+   * @req Masquerade user is available in `req.user`
+   */
+  onUnmasquerade?: ({
+    req,
+    originalUserId,
+  }: {
+    req: PayloadRequest
+    originalUserId: string | number
+  }) => void | Promise<void>
 }
 
 export const masqueradePlugin =
@@ -65,8 +94,8 @@ export const masqueradePlugin =
       ...authCollection,
       endpoints: [
         ...(authCollection.endpoints || []),
-        masqueradeEndpoint(authCollectionSlug),
-        unmasqueradeEndpoint(authCollectionSlug),
+        masqueradeEndpoint(authCollectionSlug, pluginOptions.onMasquerade),
+        unmasqueradeEndpoint(authCollectionSlug, pluginOptions.onUnmasquerade),
       ],
       fields: [
         ...(authCollection.fields || []),

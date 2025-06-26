@@ -1,7 +1,7 @@
 "use client"
 
 import { SelectInput } from "@payloadcms/ui"
-import { useRouter } from "next/navigation.js"
+import { useRouter } from "next/navigation"
 import { use } from "react"
 
 interface Props {

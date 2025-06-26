@@ -1,7 +1,7 @@
 import type { PayloadServerReactComponent, SanitizedConfig } from "payload"
 import type { CSSProperties } from "react"
 
-import { cookies } from "next/headers.js"
+import { cookies } from "next/headers"
 
 
 const style: CSSProperties | undefined = {

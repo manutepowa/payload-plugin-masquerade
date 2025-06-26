@@ -1,8 +1,8 @@
 import type { PayloadServerReactComponent, SanitizedConfig } from "payload"
 
-import { cookies } from "next/headers.js"
+import { cookies } from "next/headers"
 
-import { SelectUser } from "./SelectUser.js"
+import { SelectUser } from "./SelectUser"
 
 export const MasqueradeForm: PayloadServerReactComponent<
   SanitizedConfig['admin']['components']['beforeNavLinks'][0]

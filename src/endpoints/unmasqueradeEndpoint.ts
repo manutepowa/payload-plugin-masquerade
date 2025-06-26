@@ -1,8 +1,12 @@
 import jwt from 'jsonwebtoken'
-import { cookies } from 'next/headers.js'
+import { cookies } from 'next/headers'
 import { type Endpoint, generatePayloadCookie } from 'payload'
+import { PluginTypes } from 'src'
 
-export const unmasqueradeEndpoint = (authCollectionSlug: string): Endpoint => ({
+export const unmasqueradeEndpoint = (
+  authCollectionSlug: string,
+  onUnmasquerade: PluginTypes['onUnmasquerade'] | undefined,
+): Endpoint => ({
   handler: async (req) => {
     const { payload, routeParams } = req
     const appCookies = await cookies()
@@ -37,6 +41,11 @@ export const unmasqueradeEndpoint = (authCollectionSlug: string): Endpoint => ({
 
     // Set masquerade cookie with allow unmasquerade
     appCookies.delete('masquerade')
+
+    // Call onUnmasquerade callback if provided
+    if (onUnmasquerade) {
+      await onUnmasquerade({ req, originalUserId: user.id })
+    }
 
     // success redirect
     return new Response(null, {
