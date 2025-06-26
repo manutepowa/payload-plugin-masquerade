@@ -1,7 +1,3 @@
-// @ts-check
-
-import payloadEsLintConfig from '@payloadcms/eslint-config'
-
 export const defaultESLintIgnores = [
   '**/.temp',
   '**/.*', // ignore all dotfiles
@@ -23,7 +19,6 @@ export const defaultESLintIgnores = [
 ]
 
 export default [
-  ...payloadEsLintConfig,
   {
     rules: {
       'no-restricted-exports': 'off',

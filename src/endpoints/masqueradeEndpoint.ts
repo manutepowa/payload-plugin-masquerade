@@ -1,8 +1,12 @@
 import jwt from 'jsonwebtoken'
-import { cookies } from 'next/headers.js'
+import { cookies } from 'next/headers'
 import { type Endpoint, generatePayloadCookie } from 'payload'
+import { PluginTypes } from 'src'
 
-export const masqueradeEndpoint = (authCollectionSlug: string): Endpoint => ({
+export const masqueradeEndpoint = (
+  authCollectionSlug: string,
+  onMasquerade: PluginTypes['onMasquerade'] | undefined,
+): Endpoint => ({
   method: 'get',
   path: '/:id/masquerade',
   handler: async (req) => {
@@ -39,6 +43,11 @@ export const masqueradeEndpoint = (authCollectionSlug: string): Endpoint => ({
 
     // Set masquerade cookie with allow unmasquerade
     appCookies.set('masquerade', req.user?.id.toString() as string)
+
+    // Call onMasquerade callback if provided
+    if (onMasquerade) {
+      await onMasquerade({ req, masqueradeUserId: user.id })
+    }
 
     // success redirect
     return new Response(null, {

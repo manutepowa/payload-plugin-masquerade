@@ -58,6 +58,36 @@ export default buildConfig({
 });
 ```
 
+## Hooks onMasquerade and onUnmasquerade
+```ts
+plugins: [
+  masqueradePlugin({
+    authCollection: Users.slug,
+    enableBlockForm: true,
+    enabled: true,
+    onUnmasquerade: async ({ req, originalUserId }) => {
+      console.log(Object.keys(req || {}))
+      console.log(`You are: ${originalUserId || 'unknown'}`)
+      console.log(`Your masquerade user is: ${req.user?.email || 'unknown'}`)
+    },
+    onMasquerade: async ({ req, masqueradeUserId }) => {
+      const { user: originalUser } = req
+      // Custom logic when masquerading
+      const { docs } = await req.payload.find({
+        collection: 'users',
+        limit: 1,
+        where: {
+          id: { equals: masqueradeUserId },
+        },
+      })
+
+      console.log(`You are: ${originalUser?.email || 'unknown'}`)
+      console.log(`You are masquerading as user: ${docs[0]?.email || 'unknown'}`)
+    },
+  }),
+],
+```
+
 
 ## Contributing
 

@@ -7,9 +7,9 @@ import { masqueradePlugin } from 'payload-plugin-masquerade'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
-import { Users } from './collections/User.ts'
-import { testEmailAdapter } from './helpers/testEmailAdapter.js'
-import { seed } from './seed.js'
+import { Users } from './collections/User'
+import { testEmailAdapter } from './helpers/testEmailAdapter'
+import { seed } from './seed'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -65,6 +65,25 @@ const buildConfigWithMemoryDB = async () => {
         authCollection: Users.slug,
         enableBlockForm: true,
         enabled: true,
+        onUnmasquerade: async ({ req, originalUserId }) => {
+          console.log(Object.keys(req || {}))
+          console.log(`You are: ${originalUserId || 'unknown'}`)
+          console.log(`Your masquerade user is: ${req.user?.email || 'unknown'}`)
+        },
+        onMasquerade: async ({ req, masqueradeUserId }) => {
+          const { user: originalUser } = req
+          // Custom logic when masquerading
+          const { docs } = await req.payload.find({
+            collection: 'users',
+            limit: 1,
+            where: {
+              id: { equals: masqueradeUserId },
+            },
+          })
+
+          console.log(`You are: ${originalUser?.email || 'unknown'}`)
+          console.log(`You are masquerading as user: ${docs[0]?.email || 'unknown'}`)
+        },
       }),
     ],
     secret: process.env.PAYLOAD_SECRET || 'test-secret_key',
