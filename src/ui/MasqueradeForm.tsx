@@ -3,6 +3,7 @@ import type { PayloadServerReactComponent, SanitizedConfig } from "payload"
 import { cookies } from "next/headers"
 
 import { SelectUser } from "./SelectUser"
+import { Suspense } from "react"
 
 export const MasqueradeForm: PayloadServerReactComponent<
   SanitizedConfig['admin']['components']['beforeNavLinks'][0]
@@ -19,7 +20,10 @@ export const MasqueradeForm: PayloadServerReactComponent<
   if (isMasquerading) {
     return null // Don't show the form if already masquerading
   }
+
   return (
-    <SelectUser meId={meId} usersPromise={usersPromise} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <SelectUser meId={meId} usersPromise={usersPromise} />
+    </Suspense>
   )
 }
