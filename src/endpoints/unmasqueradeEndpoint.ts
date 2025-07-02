@@ -1,6 +1,12 @@
-import jwt from 'jsonwebtoken'
 import { cookies } from 'next/headers'
-import { type Endpoint, generatePayloadCookie } from 'payload'
+import {
+  CollectionConfig,
+  type Endpoint,
+  generatePayloadCookie,
+  getFieldsToSign,
+  jwtSign,
+  User,
+} from 'payload'
 import { PluginTypes } from 'src'
 
 export const unmasqueradeEndpoint = (
@@ -14,23 +20,36 @@ export const unmasqueradeEndpoint = (
       return new Response('No user ID provided', { status: 400 })
     }
 
-    const user = await payload.findByID({
+    const authCollection = payload.config.collections?.find(
+      (collection) => collection.slug === authCollectionSlug,
+    )
+    const isUseSessionsActive = authCollection?.auth?.useSessions === true
+
+    const user = (await payload.findByID({
       collection: authCollectionSlug,
       id: routeParams.id as string,
-    })
+    })) as User
 
     if (!user) {
       return new Response('User not found', { status: 404 })
     }
 
-    const fieldsToSign = {
-      id: user.id,
-      collection: authCollectionSlug,
-      email: user.email,
+    const fieldsToSignArgs: Parameters<typeof getFieldsToSign>[0] = {
+      collectionConfig: authCollection as CollectionConfig,
+      email: user.email!,
+      user,
     }
 
-    const token = jwt.sign(fieldsToSign, req.payload.secret, {
-      expiresIn: payload.collections.users.config.auth.tokenExpiration,
+    if (isUseSessionsActive) {
+      fieldsToSignArgs.sid = user.sessions![0].id // Use the first session ID
+    }
+
+    const fieldsToSign = getFieldsToSign(fieldsToSignArgs)
+
+    const { token } = await jwtSign({
+      fieldsToSign,
+      secret: payload.secret,
+      tokenExpiration: authCollection?.auth.tokenExpiration!,
     })
 
     const cookie = generatePayloadCookie({

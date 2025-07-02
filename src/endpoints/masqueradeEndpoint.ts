@@ -1,6 +1,13 @@
-import jwt from 'jsonwebtoken'
+import { v4 as uuid } from 'uuid'
 import { cookies } from 'next/headers'
-import { type Endpoint, generatePayloadCookie } from 'payload'
+import {
+  CollectionConfig,
+  type Endpoint,
+  generatePayloadCookie,
+  getFieldsToSign,
+  jwtSign,
+  User,
+} from 'payload'
 import { PluginTypes } from 'src'
 
 export const masqueradeEndpoint = (
@@ -11,6 +18,14 @@ export const masqueradeEndpoint = (
   path: '/:id/masquerade',
   handler: async (req) => {
     const { payload, routeParams } = req
+
+    const authCollection = payload.config.collections?.find(
+      (collection) => collection.slug === authCollectionSlug,
+    )
+    const isUseSessionsActive = authCollection?.auth?.useSessions === true
+
+    console.log({ isUseSessionsActive })
+
     const appCookies = await cookies()
     if (!routeParams?.id) {
       return new Response('No user ID provided', { status: 400 })
@@ -25,18 +40,47 @@ export const masqueradeEndpoint = (
       return new Response('User not found', { status: 404 })
     }
 
-    const fieldsToSign = {
-      id: user.id,
-      collection: authCollectionSlug,
-      email: user.email,
+    const fieldsToSignArgs: Parameters<typeof getFieldsToSign>[0] = {
+      collectionConfig: authCollection as CollectionConfig,
+      email: user.email!,
+      user: user as User,
+    }
+    if (isUseSessionsActive) {
+      // Add session to user
+      const newSessionID = uuid()
+      const now = new Date()
+      const tokenExpInMs = authCollection.auth.tokenExpiration * 1000
+      const expiresAt = new Date(now.getTime() + tokenExpInMs)
+
+      const session = { id: newSessionID, createdAt: now, expiresAt }
+
+      if (!user.sessions?.length) {
+        user.sessions = [session]
+      } else {
+        user.sessions.push(session)
+      }
+
+      await payload.db.updateOne({
+        id: user.id,
+        collection: authCollectionSlug,
+        data: user,
+        req,
+        returning: false,
+      })
+
+      fieldsToSignArgs.sid = newSessionID
     }
 
-    const token = jwt.sign(fieldsToSign, req.payload.secret, {
-      expiresIn: payload.collections.users.config.auth.tokenExpiration,
+    const fieldsToSign = getFieldsToSign(fieldsToSignArgs)
+
+    const { token } = await jwtSign({
+      fieldsToSign,
+      secret: payload.secret,
+      tokenExpiration: authCollection?.auth.tokenExpiration!,
     })
 
     const cookie = generatePayloadCookie({
-      collectionAuthConfig: payload.collections.users.config.auth,
+      collectionAuthConfig: authCollection?.auth!,
       cookiePrefix: payload.config.cookiePrefix,
       token,
     })
