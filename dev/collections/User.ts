@@ -5,7 +5,9 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
-  auth: true,
+  auth: {
+    useSessions: true,
+  },
   fields: [
     {
       name: 'textField',
