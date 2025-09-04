@@ -7,6 +7,7 @@ import {
   getFieldsToSign,
   jwtSign,
   User,
+  CollectionSlug,
 } from 'payload'
 import { PluginTypes } from 'src'
 
@@ -23,8 +24,6 @@ export const masqueradeEndpoint = (
       (collection) => collection.slug === authCollectionSlug,
     )
     const isUseSessionsActive = authCollection?.auth?.useSessions === true
-
-    console.log({ isUseSessionsActive })
 
     const appCookies = await cookies()
     if (!routeParams?.id) {
@@ -60,12 +59,11 @@ export const masqueradeEndpoint = (
         user.sessions.push(session)
       }
 
-      await payload.db.updateOne({
+      await payload.update({
+        collection: authCollectionSlug as CollectionSlug,
         id: user.id,
-        collection: authCollectionSlug,
-        data: user,
+        data: { sessions: user.sessions },
         req,
-        returning: false,
       })
 
       fieldsToSignArgs.sid = newSessionID

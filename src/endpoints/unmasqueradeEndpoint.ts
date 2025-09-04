@@ -53,7 +53,7 @@ export const unmasqueradeEndpoint = (
     })
 
     const cookie = generatePayloadCookie({
-      collectionAuthConfig: payload.collections.users.config.auth,
+      collectionAuthConfig: authCollection?.auth!,
       cookiePrefix: payload.config.cookiePrefix,
       token,
     })
