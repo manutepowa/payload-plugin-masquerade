@@ -65,6 +65,7 @@ const buildConfigWithMemoryDB = async () => {
         authCollection: Users.slug,
         enableBlockForm: true,
         enabled: true,
+        redirectPath: "/",
         onUnmasquerade: async ({ req, originalUserId }) => {
           console.log(Object.keys(req || {}))
           console.log(`You are: ${originalUserId || 'unknown'}`)
