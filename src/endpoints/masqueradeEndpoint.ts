@@ -14,6 +14,7 @@ import { PluginTypes } from 'src'
 export const masqueradeEndpoint = (
   authCollectionSlug: string,
   onMasquerade: PluginTypes['onMasquerade'] | undefined,
+  redirectPath?: string,
 ): Endpoint => ({
   method: 'get',
   path: '/:id/masquerade',
@@ -95,7 +96,7 @@ export const masqueradeEndpoint = (
     return new Response(null, {
       headers: {
         'Set-Cookie': cookie,
-        Location: '/admin',
+        Location: redirectPath ?? '/admin',
       },
       status: 302,
     })

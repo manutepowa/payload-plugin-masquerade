@@ -50,6 +50,11 @@ export interface PluginTypes {
     req: PayloadRequest
     originalUserId: string | number
   }) => void | Promise<void>
+  /**
+   * Path to redirect to after masquerade or unmasquerade actions
+   * @default "/admin"
+   */
+  redirectPath?: string
 }
 
 export const masqueradePlugin =
@@ -94,8 +99,8 @@ export const masqueradePlugin =
       ...authCollection,
       endpoints: [
         ...(authCollection.endpoints || []),
-        masqueradeEndpoint(authCollectionSlug, pluginOptions.onMasquerade),
-        unmasqueradeEndpoint(authCollectionSlug, pluginOptions.onUnmasquerade),
+        masqueradeEndpoint(authCollectionSlug, pluginOptions.onMasquerade, pluginOptions.redirectPath),
+        unmasqueradeEndpoint(authCollectionSlug, pluginOptions.onUnmasquerade, pluginOptions.redirectPath),
       ],
       fields: [
         ...(authCollection.fields || []),

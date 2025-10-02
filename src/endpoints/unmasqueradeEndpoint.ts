@@ -12,6 +12,7 @@ import { PluginTypes } from 'src'
 export const unmasqueradeEndpoint = (
   authCollectionSlug: string,
   onUnmasquerade: PluginTypes['onUnmasquerade'] | undefined,
+  redirectPath?: string,
 ): Endpoint => ({
   handler: async (req) => {
     const { payload, routeParams } = req
@@ -70,7 +71,7 @@ export const unmasqueradeEndpoint = (
     return new Response(null, {
       headers: {
         'Set-Cookie': cookie,
-        Location: '/admin',
+        Location: redirectPath ?? '/admin',
       },
       status: 302,
     })
