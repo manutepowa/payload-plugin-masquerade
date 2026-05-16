@@ -27,7 +27,7 @@ The Masquerade plugin allows administrators to switch users and surf the site as
 ## Features
 
 - ✅ Compatible with Payload v3 (^3.44.0)
-- ✨ Zero external dependencies (only uses `uuid`)
+- ✨ Zero runtime dependencies
 - ⚙ Highly customizable with callbacks
 - 🔒 Secure cookie-based authentication
 - 🎯 Admin UI integration with user selection
@@ -85,6 +85,10 @@ export default buildConfig({
 | `enabled`         | `boolean`  | `true`      | Enables/disables the entire plugin                     |
 | `onMasquerade`    | `function` | `undefined` | Async callback called when starting masquerade         |
 | `onUnmasquerade`  | `function` | `undefined` | Async callback called when ending masquerade           |
+| `canMasquerade`   | `function` | admin role check | Authorizes starting masquerade                    |
+| `canUnmasquerade` | `function` | `true`      | Authorizes ending masquerade                           |
+| `userLabelField`  | `string`   | `'email'`   | Field displayed in the admin user selector             |
+| `targetUserWhere` | `Where`    | `undefined` | Optional Payload where clause for selector targets     |
 
 ### Full Configuration Example
 
@@ -97,22 +101,25 @@ export default buildConfig({
       authCollection: 'users',
       enableBlockForm: true,
       enabled: true,
-      onMasquerade: async ({ req, masqueradeUserId }) => {
+      canMasquerade: async ({ req, targetUser }) => {
+        return req.user?.roles?.includes('admin') && req.user.id !== targetUser.id
+      },
+      onMasquerade: async ({ req, originalUserId, targetUserId }) => {
         // req.user contains the original admin user
-        console.log(`Admin ${req.user?.email} started masquerading as user ${masqueradeUserId}`)
+        console.log(`Admin ${req.user?.email} started masquerading as user ${targetUserId}`)
 
         // Example: Log to audit collection
         await req.payload.create({
           collection: 'auditLogs',
           data: {
             action: 'masquerade_start',
-            adminId: req.user?.id,
-            targetUserId: masqueradeUserId,
+            adminId: originalUserId,
+            targetUserId,
             timestamp: new Date(),
           },
         })
       },
-      onUnmasquerade: async ({ req, originalUserId }) => {
+      onUnmasquerade: async ({ req, originalUserId, targetUserId }) => {
         // req.user contains the user we were masquerading as
         console.log(`Ending masquerade, returning to user ${originalUserId}`)
 
@@ -122,7 +129,7 @@ export default buildConfig({
           data: {
             action: 'masquerade_end',
             adminId: originalUserId,
-            masqueradeUserId: req.user?.id,
+            masqueradeUserId: targetUserId,
             timestamp: new Date(),
           },
         })
@@ -153,38 +160,38 @@ The plugin automatically adds these endpoints to your API:
 ### Start Masquerade
 
 ```
-GET /api/<authCollection>/:id/masquerade
+POST /api/<authCollection>/:id/masquerade
 ```
 
 **Behavior:**
 
 - Creates a JWT token for the target user
 - Sets Payload authentication cookie
-- Sets `masquerade` cookie with original user ID
+- Sets a signed `payload-masquerade` cookie with original and target user IDs
 - Redirects to `/admin`
 
 **Example:**
 
 ```bash
-curl -i "http://localhost:3000/api/users/USER_ID/masquerade"
+curl -i -X POST "http://localhost:3000/api/users/USER_ID/masquerade"
 ```
 
 ### End Masquerade
 
 ```
-GET /api/<authCollection>/unmasquerade/:id
+POST /api/<authCollection>/unmasquerade
 ```
 
 **Behavior:**
 
-- Restores authentication to original user (ID from route)
-- Clears `masquerade` cookie
+- Restores authentication to the original user from the signed masquerade cookie
+- Clears `payload-masquerade` cookie
 - Redirects to `/admin`
 
 **Example:**
 
 ```bash
-curl -i "http://localhost:3000/api/users/unmasquerade/ORIGINAL_USER_ID"
+curl -i -X POST "http://localhost:3000/api/users/unmasquerade"
 ```
 
 ## Callbacks
@@ -194,9 +201,11 @@ curl -i "http://localhost:3000/api/users/unmasquerade/ORIGINAL_USER_ID"
 Called when masquerade session starts:
 
 ```ts
-onMasquerade: async ({ req, masqueradeUserId }) => {
+onMasquerade: async ({ req, originalUserId, targetUserId, targetUser }) => {
   // req: PayloadRequest (req.user is the original admin)
-  // masqueradeUserId: ID of user being masqueraded
+  // originalUserId: ID of the original user
+  // targetUserId: ID of user being masqueraded
+  // targetUser: target user document
 }
 ```
 
@@ -205,9 +214,10 @@ onMasquerade: async ({ req, masqueradeUserId }) => {
 Called when masquerade session ends:
 
 ```ts
-onUnmasquerade: async ({ req, originalUserId }) => {
+onUnmasquerade: async ({ req, originalUserId, targetUserId }) => {
   // req: PayloadRequest (req.user is the masqueraded user)
   // originalUserId: ID of the original admin user
+  // targetUserId: ID of the masqueraded user
 }
 ```
 
@@ -218,13 +228,13 @@ onUnmasquerade: async ({ req, originalUserId }) => {
 1. **Restrict Access**: Only grant masquerade permissions to trusted administrators
 2. **Audit Trail**: Use callbacks to log all masquerade activities:
    ```ts
-   onMasquerade: async ({ req, masqueradeUserId }) => {
-     await req.payload.create({
-       collection: 'securityLogs',
-       data: {
-         action: 'masquerade',
-         adminId: req.user?.id,
-         targetId: masqueradeUserId,
+   onMasquerade: async ({ req, originalUserId, targetUserId }) => {
+      await req.payload.create({
+        collection: 'securityLogs',
+        data: {
+          action: 'masquerade',
+          adminId: originalUserId,
+          targetId: targetUserId,
          ipAddress: req.ip,
          userAgent: req.headers['user-agent'],
          timestamp: new Date(),

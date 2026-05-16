@@ -4,6 +4,8 @@ export const defaultESLintIgnores = [
   '**/.git',
   '**/.hg',
   '**/.pnp.*',
+  '**/.next/',
+  '**/.next/**',
   '**/.svn',
   '**/playwright.config.ts',
   '**/vitest.config.js',
@@ -19,6 +21,9 @@ export const defaultESLintIgnores = [
 ]
 
 export default [
+  {
+    ignores: defaultESLintIgnores,
+  },
   {
     rules: {
       'no-restricted-exports': 'off',

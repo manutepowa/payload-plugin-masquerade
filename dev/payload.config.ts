@@ -66,19 +66,22 @@ const buildConfigWithMemoryDB = async () => {
         enableBlockForm: true,
         enabled: true,
         redirectPath: "/",
-        onUnmasquerade: async ({ req, originalUserId }) => {
+        canMasquerade: async ({ req }) => {
+          return req.user?.email === 'dev@payloadcms.com'
+        },
+        onUnmasquerade: async ({ req, originalUserId, targetUserId }) => {
           console.log(Object.keys(req || {}))
           console.log(`You are: ${originalUserId || 'unknown'}`)
-          console.log(`Your masquerade user is: ${req.user?.email || 'unknown'}`)
+          console.log(`Your masquerade user is: ${targetUserId || req.user?.email || 'unknown'}`)
         },
-        onMasquerade: async ({ req, masqueradeUserId }) => {
+        onMasquerade: async ({ req, targetUserId }) => {
           const { user: originalUser } = req
           // Custom logic when masquerading
           const { docs } = await req.payload.find({
             collection: 'users',
             limit: 1,
             where: {
-              id: { equals: masqueradeUserId },
+              id: { equals: targetUserId },
             },
           })
 

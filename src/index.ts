@@ -1,7 +1,8 @@
-import type { CollectionConfig, Config, PayloadRequest, Plugin } from 'payload'
+import type { CollectionConfig, Config, PayloadRequest, Plugin, User, Where } from 'payload'
 
 import { cookies } from 'next/headers'
 
+import { getMasqueradeCookieName } from './cookies/masqueradeCookie'
 import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint'
 import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint'
 
@@ -22,19 +23,23 @@ export interface PluginTypes {
    */
   enabled?: boolean
   /**
-   * Optional callback that runs whenever an admin starts masquerading as another user.
+   * Optional callback that runs whenever an authorized user starts masquerading as another user.
    *
    * This function can be used to execute custom logic such as logging, notifications,
-   * or permission checks. It receives the request object and the masqueraded user ID as arguments,
+   * or audit logging. It receives both the original and target user IDs,
    * and can be asynchronous.
    * @req Original user is available in `req.user`
    */
   onMasquerade?: ({
     req,
-    masqueradeUserId,
+    originalUserId,
+    targetUser,
+    targetUserId,
   }: {
     req: PayloadRequest
-    masqueradeUserId: string | number
+    originalUserId: string | number
+    targetUser: User
+    targetUserId: string | number
   }) => void | Promise<void>
   /**
    * Optional callback that runs whenever an admin stops masquerading and returns to their original user.
@@ -46,15 +51,49 @@ export interface PluginTypes {
   onUnmasquerade?: ({
     req,
     originalUserId,
+    targetUserId,
   }: {
     req: PayloadRequest
     originalUserId: string | number
+    targetUserId: string | number
   }) => void | Promise<void>
   /**
    * Path to redirect to after masquerade or unmasquerade actions
    * @default "/admin"
    */
   redirectPath?: string
+  /**
+   * Field used by the admin selector to display users
+   * @default "email"
+   */
+  userLabelField?: string
+  /**
+   * Restrict users shown in the admin selector
+   */
+  targetUserWhere?: Where
+  /**
+   * Decide whether the current user can start masquerading as the target user.
+   * If omitted, the plugin falls back to a conservative `roles.includes('admin')` check.
+   */
+  canMasquerade?: ({
+    req,
+    targetUser,
+  }: {
+    req: PayloadRequest
+    targetUser: User
+  }) => boolean | Promise<boolean>
+  /**
+   * Decide whether the current masqueraded user can return to the original user.
+   */
+  canUnmasquerade?: ({
+    req,
+    originalUserId,
+    targetUserId,
+  }: {
+    req: PayloadRequest
+    originalUserId: string | number
+    targetUserId: string | number
+  }) => boolean | Promise<boolean>
 }
 
 export const masqueradePlugin =
@@ -64,6 +103,17 @@ export const masqueradePlugin =
 
     if (pluginOptions.enabled === false) {
       return config
+    }
+
+    const authCollectionSlug = pluginOptions.authCollection || 'users'
+
+    config.custom = {
+      ...(config.custom || {}),
+      masqueradePlugin: {
+        authCollectionSlug,
+        targetUserWhere: pluginOptions.targetUserWhere,
+        userLabelField: pluginOptions.userLabelField || 'email',
+      },
     }
 
     config.admin = {
@@ -86,7 +136,6 @@ export const masqueradePlugin =
     // Add authCollection field ui masquerade
     // Add authCollection endpoints to masquerade and unmasquerade
 
-    const authCollectionSlug = pluginOptions.authCollection || 'users'
     const authCollection = config.collections?.find(
       (collection) => collection.slug === authCollectionSlug,
     )
@@ -99,8 +148,18 @@ export const masqueradePlugin =
       ...authCollection,
       endpoints: [
         ...(authCollection.endpoints || []),
-        masqueradeEndpoint(authCollectionSlug, pluginOptions.onMasquerade, pluginOptions.redirectPath),
-        unmasqueradeEndpoint(authCollectionSlug, pluginOptions.onUnmasquerade, pluginOptions.redirectPath),
+        masqueradeEndpoint({
+          authCollectionSlug,
+          canMasquerade: pluginOptions.canMasquerade,
+          onMasquerade: pluginOptions.onMasquerade,
+          redirectPath: pluginOptions.redirectPath,
+        }),
+        unmasqueradeEndpoint({
+          authCollectionSlug,
+          canUnmasquerade: pluginOptions.canUnmasquerade,
+          onUnmasquerade: pluginOptions.onUnmasquerade,
+          redirectPath: pluginOptions.redirectPath,
+        }),
       ],
       fields: [
         ...(authCollection.fields || []),
@@ -122,6 +181,7 @@ export const masqueradePlugin =
           ...(authCollection.hooks?.afterLogout || []),
           async () => {
             const cooks = await cookies()
+            cooks.delete(getMasqueradeCookieName())
             cooks.delete('masquerade')
           },
         ],

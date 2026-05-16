@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation"
 import { use } from "react"
 
 interface Props {
+  authCollectionSlug: string
   meId: number | string
+  userLabelField: string
   usersPromise: Promise<any>
 }
 
-export const SelectUser = ({meId, usersPromise}: Props) => {
+export const SelectUser = ({authCollectionSlug, meId, userLabelField, usersPromise}: Props) => {
   const router = useRouter()
   const { docs } = use(usersPromise)
 
@@ -18,14 +20,25 @@ export const SelectUser = ({meId, usersPromise}: Props) => {
         name="user"
         onChange={(option) => {
           const selectedValue = (Array.isArray(option) ? option[0]?.value : option?.value) as string || ''
-          // setValue(selectedValue)
-          // /api/users/${idUser}/masquerade
-          router.push(`/api/users/${selectedValue}/masquerade`)
+          if (!selectedValue) {
+            return
+          }
+
+          void fetch(`/api/${authCollectionSlug}/${selectedValue}/masquerade`, {
+            method: 'POST',
+          }).then((response) => {
+            if (response.redirected) {
+              window.location.assign(response.url)
+              return
+            }
+
+            router.refresh()
+          })
         }}
         options={[
           {label: 'Select a user', value: ''},
           ...docs.map((user: any) => ({
-            label: user.email || user.id, // Assuming users have an 'email' field
+            label: user[userLabelField] || user.email || user.id,
             value: user.id, // Assuming users have an 'id' field
           })).filter((user: any) => user.value !== meId) // Exclude the current user,
         ]}
