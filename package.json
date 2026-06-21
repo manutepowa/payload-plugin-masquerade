@@ -37,7 +37,7 @@
     "build": "pnpm copyfiles && pnpm build:types && pnpm build:swc",
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
     "build:types": "tsc --outDir dist --rootDir ./src",
-    "clean": "rimraf {dist,*.tsbuildinfo}",
+    "clean": "rimraf {dist,*.tsbuildinfo,dev/*.db,dev/*.db-journal}",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png,json}\" dist/",
     "dev": "next dev dev --turbo",
     "dev:generate-importmap": "pnpm dev:payload generate:importmap",
@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
-    "@payloadcms/db-mongodb": "3.44.0",
     "@payloadcms/db-postgres": "3.44.0",
     "@payloadcms/db-sqlite": "3.44.0",
     "@payloadcms/next": "3.44.0",
@@ -72,7 +71,6 @@
     "eslint": "^9.23.0",
     "eslint-config-next": "15.3.3",
     "graphql": "^16.8.1",
-    "mongodb-memory-server": "10.1.4",
     "next": "15.3.3",
     "open": "^10.1.0",
     "payload": "3.44.0",
@@ -105,7 +103,8 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "sharp"
+      "sharp",
+      "better-sqlite3"
     ]
   },
   "registry": "https://registry.npmjs.org/"

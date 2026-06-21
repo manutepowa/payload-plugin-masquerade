@@ -42,6 +42,10 @@ yarn-error.log*
 
 /dev/media
 
+# sqlite (dev)
+*.db
+*.db-journal
+
 # Playwright
 /test-results/
 /playwright-report/
