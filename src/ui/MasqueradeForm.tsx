@@ -21,7 +21,8 @@ export const MasqueradeForm: PayloadServerReactComponent<
   const usersPromise = payload.find({
     collection: authCollectionSlug,
     depth: 0,
-    limit: 20,
+    limit: 10,
+    page: 1,
     where: pluginConfig?.targetUserWhere,
   })
 

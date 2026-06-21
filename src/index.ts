@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 
 import { getMasqueradeCookieName } from './cookies/masqueradeCookie'
 import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint'
+import { searchUsersEndpoint } from './endpoints/searchUsersEndpoint'
 import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint'
 
 export interface PluginTypes {
@@ -159,6 +160,11 @@ export const masqueradePlugin =
           canUnmasquerade: pluginOptions.canUnmasquerade,
           onUnmasquerade: pluginOptions.onUnmasquerade,
           redirectPath: pluginOptions.redirectPath,
+        }),
+        searchUsersEndpoint({
+          authCollectionSlug,
+          targetUserWhere: pluginOptions.targetUserWhere,
+          userLabelField: pluginOptions.userLabelField || 'email',
         }),
       ],
       fields: [
