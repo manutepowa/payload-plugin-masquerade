@@ -1,11 +1,11 @@
 import type { CollectionConfig, Config, PayloadRequest, Plugin, User, Where } from 'payload'
 
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers.js'
 
-import { getMasqueradeCookieName } from './cookies/masqueradeCookie'
-import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint'
-import { searchUsersEndpoint } from './endpoints/searchUsersEndpoint'
-import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint'
+import { getMasqueradeCookieName } from './cookies/masqueradeCookie.js'
+import { masqueradeEndpoint } from './endpoints/masqueradeEndpoint.js'
+import { searchUsersEndpoint } from './endpoints/searchUsersEndpoint.js'
+import { unmasqueradeEndpoint } from './endpoints/unmasqueradeEndpoint.js'
 
 export interface PluginTypes {
   /**

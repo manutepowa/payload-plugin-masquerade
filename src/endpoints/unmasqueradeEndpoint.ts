@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers.js'
 import {
   CollectionSlug,
   CollectionConfig,
@@ -13,7 +13,7 @@ import type { PluginTypes } from '../index'
 import {
   getMasqueradeCookieName,
   parseMasqueradeCookieValue,
-} from '../cookies/masqueradeCookie'
+} from '../cookies/masqueradeCookie.js'
 
 export const unmasqueradeEndpoint = ({
   authCollectionSlug,

@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers.js'
 import {
   CollectionConfig,
   type Endpoint,
@@ -13,7 +13,7 @@ import type { PluginTypes } from '../index'
 import {
   createMasqueradeCookieValue,
   getMasqueradeCookieName,
-} from '../cookies/masqueradeCookie'
+} from '../cookies/masqueradeCookie.js'
 
 const hasAdminRole = (user: unknown): boolean => {
   const roles = (user as { roles?: unknown })?.roles

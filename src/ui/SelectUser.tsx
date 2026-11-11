@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactSelect } from "@payloadcms/ui"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation.js"
 import { use, useCallback, useEffect, useRef, useState } from "react"
 
 interface Props {

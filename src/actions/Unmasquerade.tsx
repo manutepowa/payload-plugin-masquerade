@@ -1,8 +1,8 @@
 import type { PayloadServerReactComponent, SanitizedConfig } from "payload"
 import type { CSSProperties } from "react"
 
-import { cookies } from "next/headers"
-import { getMasqueradeCookieName } from "../cookies/masqueradeCookie"
+import { cookies } from "next/headers.js"
+import { getMasqueradeCookieName } from "../cookies/masqueradeCookie.js"
 
 
 const style: CSSProperties | undefined = {
